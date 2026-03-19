@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carvidros – Parabrisas e Vidros Automotivos | São José e Palhoça</title>
+  <meta name="description" content="Carvidros: especialistas em parabrisas e vidros automotivos desde 1993. Produtos homologados pelas montadoras. São José e Palhoça – Grande Florianópolis." />
+
+  <!-- Fontes Neo-Brutalistas -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #fff; color: #000; font-family: 'Satoshi', system-ui, sans-serif; font-weight: 500; line-height: 1.6; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── VARIÁVEIS ─────────────────────────────────────────────── */
+    :root {
+      --red:    #e8192c;
+      --black:  #111111;
+      --gray:   #c4c4c4;
+      --white:  #ffffff;
+      --border: 2px solid #000000;
+      --sh-sm:  4px 4px 0px 0px #000000;
+      --sh-md:  8px 8px 0px 0px #000000;
+      --sh-lg:  12px 12px 0px 0px #000000;
+    }
+
+    /* ── UTILITÁRIOS ───────────────────────────────────────────── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3, h4 { font-family: 'Cabinet Grotesk', system-ui, sans-serif; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+
+    /* ── PADRÃO DE PONTOS ──────────────────────────────────────── */
+    .dot-overlay { display: none; }
+    .dot-overlay-dark { display: none; }
+
+    /* ── BOTÕES ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem;
+      padding: 13px 24px; border: var(--border); cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      white-space: nowrap; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .btn-red   { background: var(--red); color: #fff; box-shadow: var(--sh-sm); }
+    .btn-black { background: var(--black); color: #fff; box-shadow: var(--sh-sm); border-color: var(--red); }
+    .btn-white { background: #fff; color: #000; box-shadow: var(--sh-sm); }
+    .btn:hover { transform: translate(4px, 4px); box-shadow: none; }
+    .btn-lg { padding: 17px 32px; font-size: 1.05rem; }
+    .btn-xl { padding: 20px 40px; font-size: 1.1rem; box-shadow: var(--sh-md); }
+    .btn-xl:hover { transform: translate(8px, 8px); box-shadow: none; }
+
+    /* ── SVG ÍCONES ────────────────────────────────────────────── */
+    .ico { display: inline-block; width: 18px; height: 18px; flex-shrink: 0; }
+    .ico-sm { width: 15px; height: 15px; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* TOPBAR                                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    .topbar {
+      background: #1a1a1a; color: var(--gray);
+      font-family: 'Satoshi', sans-serif; font-size: 0.80rem;
+      padding: 6px 0; border-bottom: 2px solid var(--red);
+    }
+    .topbar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+    .topbar a { color: var(--gray); transition: color 0.2s; }
+    .topbar a:hover { color: #fff; }
+    .topbar-phones { display: flex; gap: 20px; }
+    .topbar-hours { font-size: 0.78rem; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* HEADER                                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--black);
+      border-bottom: 2px solid var(--red);
+      height: 100px;
+    }
+    header .container {
+      height: 100%; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    .header-logo img { height: 88px; width: auto; }
+    .header-nav { display: flex; gap: 28px; }
+    .header-nav a {
+      font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: 0.88rem;
+      color: #fff; text-transform: uppercase; letter-spacing: 0.05em;
+      padding-bottom: 2px; border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .header-nav a:hover { border-bottom-color: var(--red); }
+    .header-cta { display: flex; gap: 10px; }
+    .header-cta .btn { padding: 9px 18px; font-size: 0.82rem; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+    .nav-toggle span { display: block; width: 26px; height: 2px; background: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* HERO                                                         */
+    /* ═══════════════════════════════════════════════════════════ */
+    .hero {
+      background: var(--black); color: #fff;
+      padding: 80px 0; position: relative; overflow: hidden;
+    }
+    .hero .container {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: transparent; color: #fff;
+      border: 2px solid #fff;
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      color: #fff; margin-bottom: 20px;
+    }
+    .hero h1 .red { color: var(--red); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--gray);
+      margin-bottom: 36px; max-width: 500px; line-height: 1.65;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Card direito do hero */
+    .hero-card {
+      border: 2px solid var(--red);
+      box-shadow: var(--sh-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-card img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .hero-card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--red); border-top: 2px solid #000;
+      padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-card-overlay span { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }
+    .hero-stars { color: #fff; font-size: 0.95rem; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* MARQUEE                                                      */
+    /* ═══════════════════════════════════════════════════════════ */
+    .marquee-bar {
+      background: var(--red);
+      border-top: 2px solid #000; border-bottom: 2px solid #000;
+      overflow: hidden; padding: 14px 0; position: relative;
+    }
+    .marquee-track {
+      display: flex; width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700;
+      font-size: 0.92rem; color: #fff; text-transform: uppercase;
+      letter-spacing: 0.06em; white-space: nowrap;
+      padding: 0 12px;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* PROBLEMA vs SOLUÇÃO                                          */
+    /* ═══════════════════════════════════════════════════════════ */
+    .pvs { background: #fff; padding: 80px 0; }
+    .pvs .container > h2 { text-align: center; font-size: 2.2rem; margin-bottom: 12px; }
+    .pvs .container > p  { text-align: center; color: #555; margin-bottom: 48px; font-size: 1rem; }
+    .pvs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    .pvs-card {
+      padding: 36px 32px; border: 2px solid #000;
+    }
+    .pvs-card-problem {
+      background: #f4f4f4;
+      border-style: dashed;
+      opacity: 0.85;
+    }
+    .pvs-card-solution {
+      background: var(--red); color: #fff;
+      border-style: solid;
+      box-shadow: var(--sh-md);
+      position: relative; overflow: hidden;
+    }
+    .pvs-card h3 {
+      font-size: 1.4rem; margin-bottom: 22px;
+      text-transform: uppercase; letter-spacing: -0.01em;
+    }
+    .pvs-card-solution h3 { color: #fff; }
+    .pvs-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pvs-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.95rem; font-weight: 500;
+    }
+    .pvs-icon {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid; border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; margin-top: 1px;
+    }
+    .pvs-card-problem .pvs-icon { border-color: var(--red); color: var(--red); }
+    .pvs-card-solution .pvs-icon { border-color: #fff; color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* SERVIÇOS                                                     */
+    /* ═══════════════════════════════════════════════════════════ */
+    .services {
+      background: var(--black); padding: 80px 0;
+      border-top: 2px solid var(--red); border-bottom: 2px solid var(--red);
+      position: relative; overflow: hidden;
+    }
+    .services .container > h2 { color: #fff; font-size: 2.2rem; text-align: center; margin-bottom: 8px; }
+    .services .container > p  { color: var(--gray); text-align: center; margin-bottom: 48px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card {
+      background: #fff; border: var(--border);
+      box-shadow: var(--sh-sm); padding: 28px 24px;
+      transition: transform 0.12s, box-shadow 0.12s;
+      cursor: default;
+    }
+    .service-card:hover { transform: translate(4px, 4px); box-shadow: none; }
+    .service-card-num {
+      display: inline-block;
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800;
+      font-size: 0.72rem; color: #999; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 14px;
+    }
+    .service-card-icon {
+      width: 44px; height: 44px;
+      background: var(--gray); border: 2px solid #000;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      transition: background 0.2s;
+    }
+    .service-card:hover .service-card-icon { background: var(--red); }
+    .service-card:hover .service-card-icon svg { stroke: #fff; fill: #fff; }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #000; }
+    .service-card p  { font-size: 0.88rem; color: #555; line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* COMO FUNCIONA                                                */
+    /* ═══════════════════════════════════════════════════════════ */
+    .how { background: var(--black); padding: 80px 0; }
+    .how .container > h2 { color: #fff; font-size: 2.2rem; text-align: center; margin-bottom: 8px; }
+    .how .container > p  { color: var(--gray); text-align: center; margin-bottom: 56px; }
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+    .how-steps::before {
+      content: '';
+      position: absolute; top: 24px; left: 15%; right: 15%; height: 2px;
+      background: var(--red); z-index: 0;
+    }
+    .how-step { text-align: center; padding: 0 24px; position: relative; z-index: 1; }
+    .how-step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 4px solid; display: flex; align-items: center; justify-content: center;
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; font-size: 1.1rem;
+      margin: 0 auto 20px; background: var(--black);
+    }
+    .how-step:nth-child(1) .how-step-num { border-color: var(--gray); color: var(--gray); }
+    .how-step:nth-child(2) .how-step-num { border-color: var(--red); color: var(--red); }
+    .how-step:nth-child(3) .how-step-num { border-color: #fff; color: #fff; }
+    .how-step h3 { font-size: 1.1rem; color: #fff; margin-bottom: 10px; }
+    .how-step p  { font-size: 0.88rem; color: var(--gray); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* VÍDEO                                                        */
+    /* ═══════════════════════════════════════════════════════════ */
+    .video-section { background: #fff; padding: 80px 0; border-top: 2px solid #000; }
+    .video-section .container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .video-content h2 { font-size: 2rem; margin-bottom: 12px; }
+    .video-content p  { color: #555; margin-bottom: 28px; font-size: 0.97rem; }
+    .video-points { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .video-point {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.92rem; font-weight: 500;
+    }
+    .video-point-marker {
+      width: 4px; min-height: 20px; background: var(--red);
+      flex-shrink: 0; margin-top: 3px;
+    }
+    .video-wrapper {
+      display: block; position: relative;
+      border: var(--border); box-shadow: var(--sh-md);
+      aspect-ratio: 16/9; overflow: hidden;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .video-wrapper:hover { transform: translate(8px, 8px); box-shadow: none; }
+    .video-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-play-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .video-wrapper:hover .video-play-overlay { background: rgba(0,0,0,0.20); }
+    .video-play-btn {
+      width: 68px; height: 68px;
+      background: var(--red); border: var(--border);
+      box-shadow: var(--sh-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-play-btn svg { width: 26px; height: 26px; fill: #fff; margin-left: 4px; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* DEPOIMENTOS                                                  */
+    /* ═══════════════════════════════════════════════════════════ */
+    .reviews {
+      background: var(--gray); padding: 80px 0;
+      border-top: 2px solid #000; border-bottom: 2px solid #000;
+      position: relative; overflow: hidden;
+    }
+    .reviews .container > h2 { font-size: 2.2rem; text-align: center; margin-bottom: 8px; }
+    .reviews .container > p  { text-align: center; color: #333; margin-bottom: 20px; }
+    .google-badge {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin-bottom: 48px;
+    }
+    .google-score-num {
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800;
+      font-size: 3.5rem; color: #000; line-height: 1;
+    }
+    .google-badge-info { text-align: left; }
+    .g-stars { color: var(--red); font-size: 1.4rem; }
+    .g-count { font-size: 0.83rem; color: #444; margin-top: 2px; }
+    .g-logo { font-size: 0.88rem; font-weight: 700; letter-spacing: -0.3px; margin-top: 2px; }
+    .g-logo .g  { color: #4285F4; }
+    .g-logo .o1 { color: #EA4335; }
+    .g-logo .o2 { color: #FBBC05; }
+    .g-logo .g2 { color: #4285F4; }
+    .g-logo .l  { color: #34A853; }
+    .g-logo .e  { color: #EA4335; }
+
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review-card {
+      background: #fff;
+      /* Cantos assimétricos: sup-dir e inf-esq arredondados */
+      border-radius: 2px 24px 2px 24px;
+      border: var(--border); box-shadow: var(--sh-sm);
+      padding: 26px;
+    }
+    .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .review-avatar {
+      width: 42px; height: 42px; background: var(--red);
+      border: 2px solid #000;
+      color: #fff; font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .review-name { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; color: #000; }
+    .review-meta { font-size: 0.74rem; color: #888; margin-top: 2px; }
+    .review-stars { color: var(--red); font-size: 0.92rem; margin-bottom: 8px; }
+    .review-text { font-size: 0.88rem; color: #444; line-height: 1.55; }
+    .reviews-link { text-align: center; margin-top: 2rem; }
+    .reviews-link a {
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700;
+      font-size: 0.88rem; color: #000; text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* LOJAS                                                        */
+    /* ═══════════════════════════════════════════════════════════ */
+    .stores { background: var(--black); padding: 80px 0; }
+    .stores .container > h2 { color: #fff; font-size: 2.2rem; text-align: center; margin-bottom: 8px; }
+    .stores .container > p  { color: var(--gray); text-align: center; margin-bottom: 48px; }
+    .stores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .store-card { border: var(--border); box-shadow: var(--sh-md); overflow: hidden; }
+    .store-photo { width: 100%; height: 190px; object-fit: cover; display: block; border-bottom: 2px solid #000; }
+    .store-info { background: #1e1e1e; padding: 26px; }
+    .store-tag {
+      display: inline-block; background: var(--red); color: #fff;
+      border: 2px solid #000;
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700;
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 3px 10px; margin-bottom: 10px;
+    }
+    .store-info h3 { font-size: 1.3rem; color: #fff; margin-bottom: 16px; }
+    .store-detail { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px; font-size: 0.88rem; color: var(--gray); }
+    .store-label { font-weight: 700; color: #666; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; min-width: 38px; margin-top: 1px; }
+    .store-detail a { color: var(--gray); transition: color 0.2s; }
+    .store-detail a:hover { color: #fff; }
+    .store-ctas { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .store-ctas .btn { padding: 10px 18px; font-size: 0.80rem; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* CTA FINAL                                                    */
+    /* ═══════════════════════════════════════════════════════════ */
+    .cta-final {
+      background: var(--red);
+      border-top: 2px solid #000; border-bottom: 2px solid #000;
+      padding: 90px 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-final .container { position: relative; z-index: 1; }
+    .cta-final h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: #fff; margin-bottom: 16px; max-width: 700px; margin-left: auto; margin-right: auto;
+    }
+    .cta-final p { color: rgba(255,255,255,0.85); margin-bottom: 40px; font-size: 1.05rem; }
+    .cta-final-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-final .btn-white { border-color: #000; }
+    .cta-final .btn-black { border-color: #000; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* FOOTER                                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    footer { background: var(--black); color: var(--gray); border-top: 2px solid var(--red); padding: 56px 0 28px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1.2fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { margin-bottom: 16px; }
+    .footer-logo img { height: 44px; width: auto; filter: brightness(0) invert(1) opacity(0.85); }
+    .footer-about p { font-size: 0.86rem; color: #666; line-height: 1.65; }
+    .footer-col h4 {
+      font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700;
+      color: #fff; font-size: 0.88rem; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 16px;
+      padding-bottom: 8px; border-bottom: 2px solid var(--red);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { font-size: 0.85rem; color: #666; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid #222; padding-top: 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: #444; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* WHATSAPP FLUTUANTE                                           */
+    /* ═══════════════════════════════════════════════════════════ */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #25D366; color: #fff;
+      width: 62px; height: 62px;
+      border: 2px solid #000; box-shadow: var(--sh-sm);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .wa-float:hover { transform: translate(4px, 4px); box-shadow: none; }
+    .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* RESPONSIVO                                                   */
+    /* ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .hero .container { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .pvs-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-steps { grid-template-columns: 1fr; gap: 32px; }
+      .how-steps::before { display: none; }
+      .video-section .container { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .stores-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .header-nav { display: none; }
+      .nav-toggle { display: flex; }
+      .header-cta { display: none; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-final h2 { font-size: 1.9rem; }
+      .topbar .container { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ TOPBAR ════════════════════════════════════════════════════ -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-phones">
+        <a href="tel:4832411586">São José: (48) 3241-1586</a>
+        <a href="tel:4830332038">Palhoça: (48) 3033-2038</a>
+      </div>
+      <div class="topbar-hours">Seg–Sex: 8h às 18h</div>
+    </div>
+  </div>
+
+  <!-- ══ HEADER ════════════════════════════════════════════════════ -->
+  <header>
+    <div class="container">
+      <a href="#" class="header-logo">
+        <img src="images/logo.png" alt="Carvidros" />
+      </a>
+
+      <nav class="header-nav">
+        <a href="#servicos">Serviços</a>
+        <a href="#como-funciona">Como Funciona</a>
+        <a href="#avaliacoes">Avaliações</a>
+        <a href="#lojas">Nossas Lojas</a>
+      </nav>
+
+      <div class="header-cta">
+        <a href="https://wa.me/5548988456127?text=Olá%2C%20gostaria%20de%20um%20orçamento!" class="btn btn-red">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="tel:4832411586" class="btn btn-black">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Ligar Agora
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="dot-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Desde 1993 · Mais de 30 anos de experiência</div>
+        <h1>
+          Parabrisas e vidros com <span class="red">quem entende</span> do assunto
+        </h1>
+        <p class="hero-sub">
+          Troca, instalação e recuperação de vidros para carros nacionais e importados.
+          Produtos homologados pelas montadoras. São José, Palhoça e Grande Florianópolis.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://wa.me/5548988456127?text=Olá%2C%20quero%20um%20orçamento!" class="btn btn-red btn-lg">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Pedir Orçamento
+          </a>
+          <a href="tel:4832411586" class="btn btn-white btn-lg">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Ligar Agora
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="images/sao-jose2.jpg" alt="Interior da loja Carvidros São José" />
+        <div class="hero-card-overlay">
+          <span>Parceria Saint-Gobain SEKURIT</span>
+          <span class="hero-stars">★★★★★ 4,7</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MARQUEE ════════════════════════════════════════════════════ -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <!-- duplicado para loop contínuo -->
+      <span class="marquee-item">&#10022; São José</span>
+      <span class="marquee-item">&#10022; Palhoça</span>
+      <span class="marquee-item">&#10022; Grande Florianópolis</span>
+      <span class="marquee-item">&#10022; Produtos homologados pelas montadoras</span>
+      <span class="marquee-item">&#10022; +30 anos de experiência</span>
+      <span class="marquee-item">&#10022; Parceria Saint-Gobain SEKURIT</span>
+      <span class="marquee-item">&#10022; Atendimento especializado</span>
+      <span class="marquee-item">&#10022; São José</span>
+      <span class="marquee-item">&#10022; Palhoça</span>
+      <span class="marquee-item">&#10022; Grande Florianópolis</span>
+      <span class="marquee-item">&#10022; Produtos homologados pelas montadoras</span>
+      <span class="marquee-item">&#10022; +30 anos de experiência</span>
+      <span class="marquee-item">&#10022; Parceria Saint-Gobain SEKURIT</span>
+      <span class="marquee-item">&#10022; Atendimento especializado</span>
+    </div>
+  </div>
+
+  <!-- ══ PROBLEMA vs SOLUÇÃO ════════════════════════════════════════ -->
+  <section class="pvs">
+    <div class="container">
+      <h2>Você reconhece <span style="color:var(--red)">esse problema?</span></h2>
+      <p>A maioria dos motoristas demora para resolver — e o problema só piora.</p>
+      <div class="pvs-grid">
+        <div class="pvs-card pvs-card-problem">
+          <h3>O problema</h3>
+          <ul class="pvs-list">
+            <li>
+              <div class="pvs-icon">&#10005;</div>
+              Trinca no parabrisa comprometendo a visibilidade
+            </li>
+            <li>
+              <div class="pvs-icon">&#10005;</div>
+              Vidro com vedação ruim causando infiltração de água e ruído
+            </li>
+            <li>
+              <div class="pvs-icon">&#10005;</div>
+              Pequenas rachaduras que crescem com variação de temperatura
+            </li>
+            <li>
+              <div class="pvs-icon">&#10005;</div>
+              Dificuldade de encontrar vidro para modelos menos comuns
+            </li>
+            <li>
+              <div class="pvs-icon">&#10005;</div>
+              Insegurança sobre a qualidade do serviço e do produto
+            </li>
+          </ul>
+        </div>
+        <div class="pvs-card pvs-card-solution">
+          <div class="dot-overlay"></div>
+          <h3 style="position:relative;z-index:1">A solução Carvidros</h3>
+          <ul class="pvs-list" style="position:relative;z-index:1">
+            <li>
+              <div class="pvs-icon">&#10003;</div>
+              Recuperação de trincas no mesmo dia — sem trocar o vidro
+            </li>
+            <li>
+              <div class="pvs-icon">&#10003;</div>
+              Instalação com vedação total e acabamento garantido
+            </li>
+            <li>
+              <div class="pvs-icon">&#10003;</div>
+              Produtos homologados pelas montadoras com garantia
+            </li>
+            <li>
+              <div class="pvs-icon">&#10003;</div>
+              Estoque amplo para nacionais, importados e caminhões
+            </li>
+            <li>
+              <div class="pvs-icon">&#10003;</div>
+              Mais de 30 anos de experiência e reputação comprovada
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVIÇOS ═══════════════════════════════════════════════════ -->
+  <section class="services" id="servicos">
+    <div class="dot-overlay"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <h2>Nossos <span style="color:var(--red)">Serviços</span></h2>
+      <p>Tudo que seu carro precisa em vidros, em um só lugar.</p>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          </div>
+          <span class="service-card-num">01 — Serviço</span>
+          <h3>Troca de Parabrisas</h3>
+          <p>Instalação de parabrisas originais e homologados para nacionais e importados, com mão de obra especializada.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <span class="service-card-num">02 — Serviço</span>
+          <h3>Recuperação de Trincas</h3>
+          <p>Pequenas trincas e estilhaços recuperados sem trocar o vidro — rápido, econômico e com resultado garantido.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h22M1 9h22M12 3v18M4 21h16"/></svg>
+          </div>
+          <span class="service-card-num">03 — Serviço</span>
+          <h3>Parabrisas de Caminhão</h3>
+          <p>Atendimento especializado para veículos de carga. Estoque disponível para os principais modelos do mercado.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <span class="service-card-num">04 — Serviço</span>
+          <h3>Vidros Laterais e Vigias</h3>
+          <p>Troca de vidros laterais, janelas e vigia traseiro com instalação garantida e acabamento impecável.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="service-card-num">05 — Serviço</span>
+          <h3>Gravação de Chassi</h3>
+          <p>Gravação do número de chassi em todos os vidros do veículo — requisito legal e proteção contra furto.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <span class="service-card-num">06 — Serviço</span>
+          <h3>Borrachas e Palhetas</h3>
+          <p>Instalação de borrachas vedantes e palhetas de limpador para garantir estanqueidade e visibilidade segura.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COMO FUNCIONA ══════════════════════════════════════════════ -->
+  <section class="how" id="como-funciona">
+    <div class="container">
+      <h2 style="color:#fff">Como <span style="color:var(--red)">Funciona</span></h2>
+      <p style="color:var(--gray)">Simples, rápido e sem complicação.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num">1</div>
+          <h3>Solicite seu orçamento</h3>
+          <p>Entre em contato pelo WhatsApp ou telefone. Respondemos em minutos com o valor e disponibilidade.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">2</div>
+          <h3>Visite uma de nossas lojas</h3>
+          <p>Duas unidades em São José e Palhoça para sua comodidade. Estoque pronto para atendimento imediato.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">3</div>
+          <h3>Vidro instalado com garantia</h3>
+          <p>Instalação por profissionais experientes, com produtos homologados e garantia no serviço.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VÍDEO ══════════════════════════════════════════════════════ -->
+  <section class="video-section">
+    <div class="container">
+      <a class="video-wrapper" href="https://www.youtube.com/watch?v=Nn1YcPqv64s" target="_blank" rel="noopener" title="Assistir no YouTube">
+        <img src="https://img.youtube.com/vi/Nn1YcPqv64s/hqdefault.jpg" alt="Carvidros – vídeo institucional" />
+        <div class="video-play-overlay">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+      </a>
+      <div class="video-content">
+        <h2>Conheça a <span style="color:var(--red)">Carvidros</span></h2>
+        <p>Uma das lojas mais tradicionais da Grande Florianópolis no segmento de vidros automotivos.</p>
+        <div class="video-points">
+          <div class="video-point">
+            <div class="video-point-marker"></div>
+            Especialistas em parabrisas para nacionais e importados
+          </div>
+          <div class="video-point">
+            <div class="video-point-marker"></div>
+            Espaço amplo para atender com agilidade
+          </div>
+          <div class="video-point">
+            <div class="video-point-marker"></div>
+            Estoque para pronto atendimento
+          </div>
+          <div class="video-point">
+            <div class="video-point-marker"></div>
+            Parceria oficial com Saint-Gobain SEKURIT
+          </div>
+        </div>
+        <a href="https://wa.me/5548988456127?text=Olá%2C%20quero%20um%20orçamento!" class="btn btn-red btn-lg">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Solicitar Orçamento
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DEPOIMENTOS ════════════════════════════════════════════════ -->
+  <section class="reviews" id="avaliacoes">
+    <div class="dot-overlay-dark"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <h2>O que nossos <span style="color:var(--red)">clientes dizem</span></h2>
+      <p>Avaliações reais de quem já confiou na Carvidros.</p>
+
+      <div class="google-badge">
+        <div class="google-score-num">4,7</div>
+        <div class="google-badge-info">
+          <div class="g-stars">★★★★★</div>
+          <div class="g-count">+35 avaliações</div>
+          <div class="g-logo">
+            <span class="g">G</span><span class="o1">o</span><span class="o2">o</span><span class="g2">g</span><span class="l">l</span><span class="e">e</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">C</div>
+            <div>
+              <div class="review-name">Celso Carlos Campos</div>
+              <div class="review-meta">Local Guide · 1.217 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Uma das lojas mais tradicionais da cidade no segmento. Atende bem, tem boa prestação de serviços, localização boa, preços competitivos e atende inclusive veículos importados."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">G</div>
+            <div>
+              <div class="review-name">Graziela Steimbach</div>
+              <div class="review-meta">12 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Produtos de alta qualidade e pronto atendimento, ótimo estabelecimento."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">I</div>
+            <div>
+              <div class="review-name">Izaias Faria Filho</div>
+              <div class="review-meta">Local Guide · 290 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excelente atendimento, trabalho rápido e preço bom."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">F</div>
+            <div>
+              <div class="review-name">Frank Charqueiro</div>
+              <div class="review-meta">Local Guide · 110 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excelente atendimento."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">R</div>
+            <div>
+              <div class="review-name">Robson F. Silva</div>
+              <div class="review-meta">Local Guide · 13 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Atendimento muito bom! Preço bom, rapidez na instalação. Fui bem atendido."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">R</div>
+            <div>
+              <div class="review-name">ROCHA</div>
+              <div class="review-meta">Local Guide · 118 avaliações</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Preço na média, por telefone bem atendido."</p>
+        </div>
+      </div>
+
+      <div class="reviews-link">
+        <a href="https://www.google.com.br/maps/place/Av.+Josu%C3%A9+di+Bernardi,+478" target="_blank">
+          Ver todas as avaliações no Google &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LOJAS ══════════════════════════════════════════════════════ -->
+  <section class="stores" id="lojas">
+    <div class="container">
+      <h2 style="color:#fff">Nossas <span style="color:var(--red)">Lojas</span></h2>
+      <p style="color:var(--gray)">Duas unidades para atender melhor você na Grande Florianópolis.</p>
+      <div class="stores-grid">
+
+        <div class="store-card">
+          <img class="store-photo" src="images/sao-jose.jpg" alt="Carvidros São José – fachada" />
+          <div class="store-info">
+            <span class="store-tag">Unidade 1</span>
+            <h3>São José</h3>
+            <div class="store-detail">
+              <span class="store-label">End.</span>
+              <span>Av. Josué di Bernardi, 478 — Campinas, São José, SC</span>
+            </div>
+            <div class="store-detail">
+              <span class="store-label">Tel.</span>
+              <a href="tel:4832411586">(48) 3241-1586</a>
+            </div>
+            <div class="store-ctas">
+              <a href="https://wa.me/5548988456127?text=Olá%2C%20quero%20um%20orçamento%20(São%20José)" class="btn btn-red">
+                <svg class="ico ico-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+              <a href="tel:4832411586" class="btn btn-black">Ligar</a>
+              <a href="https://www.google.com.br/maps/place/Av.+Josu%C3%A9+di+Bernardi,+478" target="_blank" class="btn btn-white" style="border-color:#555;color:#ccc;background:transparent;">Mapa</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="store-card">
+          <img class="store-photo" src="images/palhoca.jpg" alt="Carvidros Palhoça – fachada" />
+          <div class="store-info">
+            <span class="store-tag">Unidade 2</span>
+            <h3>Palhoça</h3>
+            <div class="store-detail">
+              <span class="store-label">End.</span>
+              <span>Marginal BR-101, KM 212 — Aririu, Palhoça, SC</span>
+            </div>
+            <div class="store-detail">
+              <span class="store-label">Tel.</span>
+              <a href="tel:4830332038">(48) 3033-2038</a>
+            </div>
+            <div class="store-ctas">
+              <a href="https://wa.me/5548988456127?text=Olá%2C%20quero%20um%20orçamento%20(Palhoça)" class="btn btn-red">
+                <svg class="ico ico-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+              <a href="tel:4830332038" class="btn btn-black">Ligar</a>
+              <a href="https://www.google.com.br/maps/place/Marginal+BR+101,+212+-+Aririu,+Palho%C3%A7a+-+SC" target="_blank" class="btn btn-white" style="border-color:#555;color:#ccc;background:transparent;">Mapa</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA FINAL ══════════════════════════════════════════════════ -->
+  <section class="cta-final">
+    <div class="dot-overlay"></div>
+    <div class="container">
+      <h2>Seu carro merece o melhor.<br>Nós entendemos do assunto.</h2>
+      <p>Entre em contato agora. Atendemos pelo WhatsApp ou telefone nas duas unidades.</p>
+      <div class="cta-final-btns">
+        <a href="https://wa.me/5548988456127?text=Olá%2C%20quero%20um%20orçamento!" class="btn btn-white btn-xl">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar pelo WhatsApp
+        </a>
+        <a href="tel:4832411586" class="btn btn-black btn-xl">São José: (48) 3241-1586</a>
+        <a href="tel:4830332038" class="btn btn-black btn-xl">Palhoça: (48) 3033-2038</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="Carvidros" />
+          </div>
+          <p class="footer-about">Especialistas em parabrisas e vidros automotivos desde 1993. Produtos homologados pelas montadoras, equipe qualificada e atendimento de confiança na Grande Florianópolis.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#servicos">Troca de parabrisas</a></li>
+            <li><a href="#servicos">Recuperação de trincas</a></li>
+            <li><a href="#servicos">Vidros laterais</a></li>
+            <li><a href="#servicos">Parabrisas de caminhão</a></li>
+            <li><a href="#servicos">Gravação de chassi</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Lojas</h4>
+          <ul>
+            <li><a href="tel:4832411586">São José: (48) 3241-1586</a></li>
+            <li><a href="#">Av. Josué di Bernardi, 478</a></li>
+            <li style="margin-top:12px"><a href="tel:4830332038">Palhoça: (48) 3033-2038</a></li>
+            <li><a href="#">Marginal BR-101, KM 212</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Horários</h4>
+          <ul>
+            <li><a href="#">Seg–Sex: 8h às 18h</a></li>
+            <li><a href="https://wa.me/5548988456127">WhatsApp: (48) 98845-6127</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Carvidros. Todos os direitos reservados.</p>
+        <p>São José &middot; Palhoça &middot; Grande Florianópolis</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ WHATSAPP FLUTUANTE ══════════════════════════════════════════ -->
+  <a href="https://wa.me/5548988456127?text=Olá%2C%20vim%20pelo%20site%20e%20quero%20um%20orçamento!" class="wa-float" title="Falar pelo WhatsApp" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>
